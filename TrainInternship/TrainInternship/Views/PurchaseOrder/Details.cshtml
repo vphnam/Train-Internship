@@ -1,0 +1,135 @@
+﻿@using TrainInternship.Models
+@model List<PurchaseOrderLine>
+@{
+    PurchaseOrder po = ViewData["PO"] as PurchaseOrder;
+}
+
+<div class="container">
+    <div class="row">
+        <b style="text-align:center;margin-bottom:20px;">PURCHASE ORDER <span id="PO_id"> @po.OrderNo</span></b>
+        <div class="col">
+            <table style="width:100%;">
+                <tr>
+                    <td>Supplier: </td>
+                    <td><input type="text" class="form-control" disabled="disabled" readonly="readonly" value="@po.Supplier.SupplierNo" /></td>
+                </tr>
+                <tr>
+                    <td>Stock site: </td>
+                    <td><input type="text" class="form-control" disabled="disabled" readonly="readonly" value="@po.StockSite" /></td>
+                </tr>
+                <tr>
+                    <td>Order date: </td>
+                    <td><input type="text" class="form-control" disabled="disabled" readonly="readonly" value="@po.OrderDate" /></td>
+                <tr>
+                    <td>Note: </td>
+                    <td><textarea class="form-control" id="Note">@po.Note</textarea></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col">
+            <table style="width:100%;">
+                <tr>
+                    <td>Supplier name: </td>
+                    <td><input type="text" class="form-control" disabled="disabled" readonly="readonly" value="@po.Supplier.SupplierName" /></td>
+                </tr>
+                <tr>
+                    <td>Stock name: </td>
+                    <td><input type="text" class="form-control" disabled="disabled" readonly="readonly" value="@po.StockName" /></td>
+                </tr>
+                <tr>
+                    <td>Address: </td>
+                    <td><textarea class="form-control" aria-label="default input example" id="Address">@po.Address</textarea></td>
+                </tr>
+                <tr>
+                    <td>County: </td>
+                    <td><input type="text" class="form-control" id="County" value="@po.County" /></td>
+                </tr>
+                <tr>
+                    <td>Post Code: </td>
+                    <td><input type="text" class="form-control" id="PostCode" value="@po.PostCode" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<table class="table-header1" id="myTable" width="100%" cellspacing="0" style="margin-top:50px;">
+    <thead>
+        <tr>
+            <th>
+                Part No
+            </th>
+            <th>
+                Part Description
+            </th>
+            <th>
+                Manufacturer
+            </th>
+            <th>
+                Order Date
+            </th>
+            <th>
+                Quantity Order
+            </th>
+            <th>
+                Buy Price
+            </th>
+            <th>
+                Memo
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                ###
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><input type="text" id="PartNo" class="PartNo" value="@item.PartNo" disabled readonly /></td>
+                <td><input type="text" id="PartDes" class="PartDes" value="@item.PartDescription" disabled readonly /></td>
+                <td><input type="text" id="Manu" class="Manu" value="@item.Manufacturer" disabled readonly /></td>
+                <td><input type="text" id="OrdDate" class="OrdDate" value="@item.OrderDate" disabled readonly /></td>
+                <td><input type="number" min="1" id="QtyOrder" class="QtyOrder" value="@item.QuantityOrder" /></td>
+                <td><input type="number" min="1" id="BuyPrice" class="BuyPrice" value="@item.BuyPrice" /></td>
+                <td><input type="text" id="MeMo" class="MeMo" value="@item.MeMo" /></td>
+                <td><input type="text" id="Amount" class="Amount" value="0.00" disabled readonly /></td>
+                <td><input type="button" value="X" id="btnRemove" class="btnRemove" /></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td><input type="text" id="PartNo" class="PartNo" disabled readonly /></td>
+            <td><input type="text" id="PartDes" class="PartDes" /></td>
+            <td><input type="text" id="Manu" class="Manu" /></td>
+            <td><input type="date" id="OrdDate" class="OrdDate" /></td>
+            <td><input type="text" id="QtyOrder" class="QtyOrder" /></td>
+            <td><input type="text" id="BuyPrice" class="BuyPrice" /></td>
+            <td><input type="text" id="MeMo" class="MeMo" /></td>
+            <td><input type="text" id="Amount" class="Amount" value="0.00" /></td>
+            <td><input type="button" value="Add" id="btnAdd" class="btnAdd" /></td>
+        </tr>
+    </tfoot>
+</table>
+<div class="detail-button">
+    <strong>TOTAL: <span id="Total" class="total">0.00    </span></strong>
+    <button type="button" id="btnAddLine">Add new line</button>
+    <button type="button" id="btnCancelPO">Cancel PO</button>
+    <button id="btnSendMail">Resend mail</button>
+    <button id="savechanges-button">Save changes</button>
+</div>
+
+
+
+
+
+<script src="~/Assets/js/jquery-3.6.0.min.js"></script>
+<script src="~/js/detail.js"></script>
